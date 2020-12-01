@@ -5,7 +5,6 @@ import "fmt"
 func day2(input []int) {
 LOOP:
 	for _, n1 := range input {
-		// try with each other inpt
 		for _, n2 := range input {
 			for _, n3 := range input {
 				if n1+n2+n3 == 2020 {
