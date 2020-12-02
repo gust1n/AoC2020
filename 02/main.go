@@ -84,11 +84,7 @@ func readInputLinesFromFile(path string) []string {
 	var lines []string
 
 	for scanner.Scan() {
-		t := scanner.Text()
-		if len(t) == 0 {
-			continue
-		}
-		lines = append(lines, t)
+		lines = append(lines, scanner.Text())
 	}
 
 	return lines

@@ -8,37 +8,16 @@ import (
 )
 
 func main() {
-	lines := readIntLinesFromFile("./input.txt")
+	lines := readStringsFromFile("./input.txt")
 
 	func() {
 		fmt.Println("----part 1----")
 
-	LOOP:
-		for _, n1 := range lines {
-			for _, n2 := range lines {
-				if n1+n2 == 2020 {
-					fmt.Printf("found %d and %d, with the product %d\n", n1, n2, n1*n2)
-					break LOOP
-				}
-			}
-		}
-
+		fmt.Println("results")
 	}()
 
 	func() {
 		fmt.Println("----part 2----")
-
-	LOOP:
-		for _, n1 := range lines {
-			for _, n2 := range lines {
-				for _, n3 := range lines {
-					if n1+n2+n3 == 2020 {
-						fmt.Printf("found %d, %d and %d, with the product %d\n", n1, n2, n3, n1*n2*n3)
-						break LOOP
-					}
-				}
-			}
-		}
 
 		fmt.Println("results")
 	}()
@@ -56,7 +35,22 @@ func check(err error) {
 	}
 }
 
-func readIntLinesFromFile(path string) []int {
+func readStringsFromFile(path string) []string {
+	file, err := os.Open(path)
+	check(err)
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	return lines
+}
+
+func readIntsFromFile(path string) []int {
 	file, err := os.Open(path)
 	check(err)
 	defer file.Close()
