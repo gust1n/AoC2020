@@ -62,6 +62,7 @@ func readIntLinesFromFile(path string) []int {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	scanner.Split(bufio.ScanWords)
 	var ints []int
 
 	for scanner.Scan() {
