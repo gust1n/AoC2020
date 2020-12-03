@@ -27,7 +27,7 @@ func main() {
 			line := lines[pos.y]
 			xPos := pos.x % len(line)
 
-			if string(lines[pos.y][xPos]) == "#" {
+			if lines[pos.y][xPos] == '#' {
 				trees++
 			}
 
@@ -54,7 +54,7 @@ func main() {
 				line := lines[pos.y]
 				xPos := pos.x % len(line)
 
-				if string(lines[pos.y][xPos]) == "#" {
+				if lines[pos.y][xPos] == '#' {
 					trees++
 				}
 
