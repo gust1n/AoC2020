@@ -70,11 +70,31 @@ type vector struct {
 	x, y int
 }
 
-func (v vector) add(other vector) vector {
+func (v vector) add(v2 vector) vector {
 	return vector{
-		x: v.x + other.x,
-		y: v.y + other.y,
+		x: v.x + v2.x,
+		y: v.y + v2.y,
 	}
+}
+
+func (v vector) sub(v2 vector) vector {
+	return vector{
+		x: v.x - v2.x,
+		y: v.y + v2.y,
+	}
+}
+
+func (v vector) manhattanDistance(v2 vector) int {
+	v = v.sub(v2)
+
+	return abs(v.x + v.y)
+}
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
 
 func min(x, y int) int {
