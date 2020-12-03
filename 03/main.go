@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
 )
 
 func main() {
@@ -18,7 +17,7 @@ func main() {
 		trees := 0
 
 		for {
-			pos = pos.Add(step)
+			pos = pos.add(step)
 
 			// reached the bottom
 			if pos.y >= len(lines) {
@@ -45,7 +44,7 @@ func main() {
 			trees := 0
 
 			for {
-				pos = pos.Add(step)
+				pos = pos.add(step)
 
 				// reached the bottom
 				if pos.y >= len(lines) {
@@ -73,12 +72,6 @@ func main() {
 	}()
 }
 
-func parseInt(s string) int {
-	i, err := strconv.Atoi(s)
-	check(err)
-	return i
-}
-
 func check(err error) {
 	if err != nil {
 		panic(err)
@@ -100,43 +93,13 @@ func readStringsFromFile(path string) []string {
 	return lines
 }
 
-func readIntsFromFile(path string) []int {
-	file, err := os.Open(path)
-	check(err)
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanWords)
-	var ints []int
-
-	for scanner.Scan() {
-		ints = append(ints, parseInt(scanner.Text()))
-	}
-
-	return ints
-}
-
 type vector struct {
 	x, y int
 }
 
-func (v vector) Add(other vector) vector {
+func (v vector) add(other vector) vector {
 	return vector{
 		x: v.x + other.x,
 		y: v.y + other.y,
 	}
-}
-
-func min(x, y int) int {
-	if x > y {
-		return y
-	}
-	return x
-}
-
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
 }
