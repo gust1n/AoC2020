@@ -65,3 +65,28 @@ func readIntsFromFile(path string) []int {
 
 	return ints
 }
+
+type vector struct {
+	x, y int
+}
+
+func (v vector) add(other vector) vector {
+	return vector{
+		x: v.x + other.x,
+		y: v.y + other.y,
+	}
+}
+
+func min(x, y int) int {
+	if x > y {
+		return y
+	}
+	return x
+}
+
+func max(x, y int) int {
+	if x < y {
+		return y
+	}
+	return x
+}
