@@ -16,21 +16,22 @@ func main() {
 	func() {
 		fmt.Println("----part 1----")
 
-		var currentIdx int
+		var entryStartIdx int
 		var numValid int
 		var passports [][]string
+
 		for i, line := range lines {
 			if len(line) == 0 { // new passport
 				var passport []string
-				for j := currentIdx; j < i; j++ { // each line for this passport
+				for j := entryStartIdx; j < i; j++ { // each line for this passport
 					passport = append(passport, strings.Fields(lines[j])...)
 				}
-				currentIdx = i + 1
+				entryStartIdx = i + 1
 				passports = append(passports, passport)
 			}
 			if i+1 == len(lines) { // last line
 				var passport []string
-				for j := currentIdx; j < len(lines); j++ { // each line for this passport
+				for j := entryStartIdx; j < len(lines); j++ { // each line for this passport
 					passport = append(passport, strings.Fields(lines[j])...)
 				}
 				passports = append(passports, passport)
@@ -48,21 +49,21 @@ func main() {
 	func() {
 		fmt.Println("----part 2----")
 
-		var currentIdx int
+		var entryStartIdx int
 		var numValid int
 		var passports [][]string
 		for i, line := range lines {
 			if len(line) == 0 { // new passport
 				var passport []string
-				for j := currentIdx; j < i; j++ { // each line for this passport
+				for j := entryStartIdx; j < i; j++ { // each line for this passport
 					passport = append(passport, strings.Fields(lines[j])...)
 				}
-				currentIdx = i + 1
+				entryStartIdx = i + 1
 				passports = append(passports, passport)
 			}
 			if i+1 == len(lines) { // last line
 				var passport []string
-				for j := currentIdx; j < len(lines); j++ { // each line for this passport
+				for j := entryStartIdx; j < len(lines); j++ { // each line for this passport
 					passport = append(passport, strings.Fields(lines[j])...)
 				}
 				passports = append(passports, passport)
