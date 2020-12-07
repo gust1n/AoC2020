@@ -12,13 +12,13 @@ import (
 var lineRegexp = regexp.MustCompile(`^(\w+\s\w+)\sbags\scontain\s(.*)`)
 var includesRegexp = regexp.MustCompile(`^(\d)\s(\w+\s\w+)\sbag[s]?`)
 
-func checkFor(bagTypes map[string]map[string]int, color, target string) bool {
-	if _, ok := bagTypes[color][target]; ok {
+func containsColor(bagTypes map[string]map[string]int, outerBagColor, targetColor string) bool {
+	if _, ok := bagTypes[outerBagColor][targetColor]; ok {
 		return true
 	}
 
-	for c := range bagTypes[color] {
-		if checkFor(bagTypes, c, target) {
+	for c := range bagTypes[outerBagColor] {
+		if containsColor(bagTypes, c, targetColor) {
 			return true
 		}
 	}
@@ -69,8 +69,8 @@ func main() {
 
 		goldCount := 0
 
-		for color := range bagTypes {
-			if checkFor(bagTypes, color, "shiny gold") {
+		for outerBagColor := range bagTypes {
+			if containsColor(bagTypes, outerBagColor, "shiny gold") {
 				goldCount++
 			}
 		}
@@ -83,8 +83,7 @@ func main() {
 
 		var totalDepth int
 		for innerBagColor, num := range bagTypes["shiny gold"] {
-			depth := checkDepth(bagTypes, 1, innerBagColor)
-			totalDepth += num * depth
+			totalDepth += num * checkDepth(bagTypes, 1, innerBagColor)
 		}
 
 		fmt.Println(totalDepth)
