@@ -13,10 +13,6 @@ var lineRegexp = regexp.MustCompile(`^(\w+\s\w+)\sbags\scontain\s(.*)`)
 var includesRegexp = regexp.MustCompile(`^(\d)\s(\w+\s\w+)\sbag[s]?`)
 
 func checkFor(bagTypes map[string]map[string]int, color, target string) bool {
-	if bagTypes[color] == nil { // end of recursion
-		return false
-	}
-
 	if _, ok := bagTypes[color][target]; ok {
 		return true
 	}
@@ -31,10 +27,6 @@ func checkFor(bagTypes map[string]map[string]int, color, target string) bool {
 }
 
 func checkDepth(bagTypes map[string]map[string]int, depth int, color string) int {
-	if bagTypes[color] == nil { // end of recursion
-		return depth
-	}
-
 	for c, num := range bagTypes[color] {
 		depth += num * checkDepth(bagTypes, 1, c)
 	}
