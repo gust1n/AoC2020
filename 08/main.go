@@ -11,7 +11,7 @@ import (
 var instructionRegexp = regexp.MustCompile(`^(jmp|acc|nop)\s(\+|\-)(\d+)$`)
 
 type instruction struct {
-	kind  string
+	op    string
 	value int
 }
 
@@ -34,7 +34,7 @@ func runProgram(program map[int]instruction) (int, bool) {
 		}
 		taken[pc] = true
 
-		switch instruction.kind {
+		switch instruction.op {
 		case "nop":
 		case "jmp":
 			pc += instruction.value
@@ -69,7 +69,7 @@ func main() {
 		// build map of instructions (index -> new instruction) to try changing
 		instructionsToChange := map[int]string{}
 		for i, instruction := range program {
-			switch instruction.kind {
+			switch instruction.op {
 			case "acc": // acc are kept
 			case "nop":
 				instructionsToChange[i] = "jmp"
@@ -81,7 +81,7 @@ func main() {
 		for index, newInstruction := range instructionsToChange {
 			program := makeProgram(lines)
 			program[index] = instruction{
-				kind:  newInstruction,
+				op:    newInstruction,
 				value: program[index].value,
 			}
 
@@ -99,14 +99,14 @@ func makeProgram(lines []string) map[int]instruction {
 
 	for i, line := range lines {
 		matches := instructionRegexp.FindStringSubmatch(line)
-		kind := matches[1]
+		op := matches[1]
 		sign := matches[2]
 		value := parseInt(matches[3])
 		if sign == "-" {
 			value = -value
 		}
 		program[i] = instruction{
-			kind:  kind,
+			op:    op,
 			value: value,
 		}
 
