@@ -55,7 +55,6 @@ func main() {
 				for _, n := range currentSet {
 					currentSetSum += n
 					if currentSetSum == wantedSetSum {
-						// sort.Ints(currentSet)
 						max, min := max(currentSet...), min(currentSet...)
 						fmt.Println(max + min)
 						break LOOP
