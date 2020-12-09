@@ -110,3 +110,15 @@ func max(x, y int) int {
 	}
 	return x
 }
+
+func minMax(ints []int) (int, int) {
+	high := ints[0]
+	low := ints[0]
+
+	for _, i := range ints {
+		high = max(high, i)
+		low = min(low, i)
+	}
+
+	return high, low
+}
