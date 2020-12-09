@@ -97,28 +97,24 @@ func abs(x int) int {
 	return x
 }
 
-func min(x, y int) int {
-	if x > y {
-		return y
+func min(list ...int) int {
+	m := list[0]
+	for _, i := range list {
+		if i < m {
+			m = i
+		}
 	}
-	return x
+
+	return m
 }
 
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
-}
-
-func minMax(ints []int) (int, int) {
-	high := ints[0]
-	low := ints[0]
-
-	for _, i := range ints {
-		high = max(high, i)
-		low = min(low, i)
+func max(list ...int) int {
+	m := list[0]
+	for _, i := range list {
+		if i > m {
+			m = i
+		}
 	}
 
-	return high, low
+	return m
 }
