@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -55,7 +56,8 @@ func main() {
 				for _, n := range currentSet {
 					currentSetSum += n
 					if currentSetSum == wantedSetSum {
-						max, min := minMax(currentSet)
+						sort.Ints(currentSet)
+						max, min := currentSet[0], currentSet[len(currentSet)-1]
 						fmt.Println(max + min)
 						break LOOP
 					}
@@ -105,16 +107,4 @@ func max(x, y int) int {
 		return y
 	}
 	return x
-}
-
-func minMax(ints []int) (int, int) {
-	high := ints[0]
-	low := ints[0]
-
-	for _, i := range ints {
-		high = max(high, i)
-		low = min(low, i)
-	}
-
-	return high, low
 }
