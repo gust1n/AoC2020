@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -94,23 +95,11 @@ func readIntsFromFile(path string) []int {
 }
 
 func min(list ...int) int {
-	m := list[0]
-	for _, i := range list {
-		if i < m {
-			m = i
-		}
-	}
-
-	return m
+	sort.Ints(list)
+	return list[0]
 }
 
 func max(list ...int) int {
-	m := list[0]
-	for _, i := range list {
-		if i > m {
-			m = i
-		}
-	}
-
-	return m
+	sort.Ints(list)
+	return list[len(list)-1]
 }
