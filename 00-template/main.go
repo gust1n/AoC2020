@@ -81,7 +81,7 @@ func (v vector) add(v2 vector) vector {
 func (v vector) sub(v2 vector) vector {
 	return vector{
 		x: v.x - v2.x,
-		y: v.y + v2.y,
+		y: v.y - v2.y,
 	}
 }
 
