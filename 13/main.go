@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -13,36 +12,28 @@ import (
 func main() {
 	lines := readStringsFromFile("./input.txt")
 
-	earliestDeparture := parseInt(lines[0])
-	var busIDs []int
-	for _, s := range strings.Split(lines[1], ",") {
-		if s != "x" {
-			busIDs = append(busIDs, parseInt(s))
-		}
-	}
-
 	func() {
 		fmt.Println("----part 1----")
 
-		// map next departure -> busID
-		nextDepartures := map[int]int{}
+		earliestDeparture := parseInt(lines[0])
+		var busIDs []int
+		for _, s := range strings.Split(lines[1], ",") {
+			if s != "x" {
+				busIDs = append(busIDs, parseInt(s))
+			}
+		}
+
+		smallestDiff := math.MaxInt64
+		smallestDiffBusID := -1
 		for _, busID := range busIDs {
-			// find smallest factor above wanted departure
-			factor := math.Ceil(float64(earliestDeparture) / float64(busID))
-			departure := busID * int(factor)
-			diff := departure - earliestDeparture
-
-			nextDepartures[diff] = busID
+			diff := busID - (earliestDeparture % busID)
+			if diff < smallestDiff {
+				smallestDiff = diff
+				smallestDiffBusID = busID
+			}
 		}
 
-		// Find smallest diff
-		diffs := make([]int, 0, len(nextDepartures))
-		for k := range nextDepartures {
-			diffs = append(diffs, k)
-		}
-		sort.Ints(diffs)
-
-		fmt.Println(diffs[0] * nextDepartures[diffs[0]])
+		fmt.Println(smallestDiff * smallestDiffBusID)
 	}()
 
 	func() {
