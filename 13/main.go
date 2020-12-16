@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -39,7 +40,34 @@ func main() {
 	func() {
 		fmt.Println("----part 2----")
 
-		fmt.Println("results")
+		// map offset -> busID
+		busOffsets := map[int]int{}
+		for offset, s := range strings.Split(lines[1], ",") {
+			if s != "x" {
+				busOffsets[offset] = parseInt(s)
+			}
+		}
+
+		factor := 1
+		departureOfFirstBus := 1
+		// find factor that matches each bus
+		for offset, busID := range busOffsets {
+			var multiplier int
+			for {
+				nextTimestamp := departureOfFirstBus + multiplier*factor
+				nextDeparture := nextTimestamp + offset
+				if nextDeparture%busID == 0 { // if in time table
+					factor *= busID
+					departureOfFirstBus = nextTimestamp
+					fmt.Println("found factor", factor, offset)
+					break
+				}
+				multiplier++
+			}
+		}
+
+		fmt.Println(departureOfFirstBus)
+
 	}()
 }
 
@@ -68,4 +96,9 @@ func readStringsFromFile(path string) []string {
 	}
 
 	return lines
+}
+
+func max(list ...int) int {
+	sort.Ints(list)
+	return list[len(list)-1]
 }
